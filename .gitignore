@@ -42,3 +42,8 @@ node_modules/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database passwords and credentials
+sup-pass*.txt
+
+.vercel

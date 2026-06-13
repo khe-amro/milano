@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getFoodImage } from '@/lib/unsplash';
+
 export async function POST(request: NextRequest) {
   try {
+    // Create Supabase client
+    const supabase = createClient();
+
+    // Verify session
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Non autorisé' },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const {
       name_fr,
@@ -12,6 +25,7 @@ export async function POST(request: NextRequest) {
       description,
       // restaurant_id,
       category_name,
+      image_url,
     } = body;
 
     // Validate required fields
@@ -31,11 +45,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Auto-fetch image from Unsplash
-    const imageUrl = await getFoodImage(name_fr, category_name);
-
-    // Create Supabase client
-    const supabase = createClient();
+    // Only auto-fetch from Pexels if the client did NOT send an image_url at all (undefined).
+    // If the client explicitly sent null, the owner chose no image → respect that choice.
+    const imageUrl = image_url !== undefined ? image_url : await getFoodImage(name_fr, category_name);
 
     // Insert menu item into database
     const { data, error } = await supabase

@@ -105,6 +105,24 @@ export default function MenuClient({ restaurant, categories, menuItems }: MenuCl
     );
   });
 
+  // Register PWA Service Worker on Mount
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const registerSW = () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => console.log('PWA Service Worker registered with scope:', reg.scope))
+          .catch((err) => console.error('PWA Service Worker registration failed:', err));
+      };
+
+      if (document.readyState === 'complete') {
+        registerSW();
+      } else {
+        window.addEventListener('load', registerSW);
+        return () => window.removeEventListener('load', registerSW);
+      }
+    }
+  }, []);
+
   // Track scrolling to show/hide "back to top" button
   useEffect(() => {
     const handleScroll = () => {
@@ -210,7 +228,8 @@ export default function MenuClient({ restaurant, categories, menuItems }: MenuCl
             alt="ميلانو ميلانو"
             width={140}
             height={48}
-            className="object-contain filter brightness-110 w-auto h-auto"
+            className="object-contain filter brightness-110"
+            style={{ width: 'auto', height: 'auto' }}
             priority
           />
         </div>
@@ -349,9 +368,9 @@ interface MenuItemCardProps {
 function MenuItemCard({ item, category }: MenuItemCardProps) {
   return (
     <div className="group flex items-center p-3.5 bg-[#1A1A1A] rounded-xl border border-[#2d2d2d] hover:border-[#C0392B]/50 transition-all duration-300 shadow-md hover:shadow-[#C0392B]/5">
-      {/* Food Photo Frame or Thematic SVG Icon Placeholder */}
+      {/* Food Photo Frame — blank dark box when no image */}
       <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#201515] to-[#121212] flex items-center justify-center border border-[#2d2d2d]/60 shadow-inner">
-        {item.image_url ? (
+        {item.image_url && (
           <Image
             src={item.image_url}
             alt={item.name_fr}
@@ -359,27 +378,19 @@ function MenuItemCard({ item, category }: MenuItemCardProps) {
             sizes="(max-width: 768px) 80px, 96px"
             className="object-cover group-hover:scale-108 transition-transform duration-500"
           />
-        ) : (
-          <div className="flex flex-col items-center justify-center opacity-85 group-hover:scale-108 transition-transform duration-500">
-            {category ? getCategoryIcon(category.name_fr) : (
-              <svg className="w-10 h-10 text-[#C0392B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 3v18M3 12h18" />
-              </svg>
-            )}
-          </div>
         )}
       </div>
 
       {/* Product Information */}
-      <div className="flex-grow pl-4 flex flex-col justify-between min-h-[80px] md:min-h-[96px]">
+      <div className="flex-grow pl-4 flex flex-col justify-between min-h-[80px] md:min-h-[96px] min-w-0">
         {/* Name (FR left, AR right) */}
-        <div>
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="font-bold text-sm md:text-base text-white group-hover:text-[#C0392B] transition-colors duration-300 leading-snug">
+        <div className="min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2 w-full min-w-0">
+            <h3 className="font-bold text-sm md:text-base text-white group-hover:text-[#C0392B] transition-colors duration-300 leading-snug break-words">
               {item.name_fr}
             </h3>
             <span
-              className="font-extrabold text-sm md:text-base text-right text-gray-200 leading-snug tracking-normal flex-shrink-0"
+              className="font-extrabold text-sm md:text-base text-right text-gray-200 leading-snug tracking-normal break-words w-full sm:w-auto text-right sm:text-right"
               dir="rtl"
             >
               {item.name_ar}
@@ -388,7 +399,7 @@ function MenuItemCard({ item, category }: MenuItemCardProps) {
 
           {/* Description */}
           {item.description && (
-            <p className="text-xs text-gray-400 mt-1 leading-normal line-clamp-2 pr-2">
+            <p className="text-xs text-gray-400 mt-1 leading-normal line-clamp-2 pr-2 break-words">
               {item.description}
             </p>
           )}

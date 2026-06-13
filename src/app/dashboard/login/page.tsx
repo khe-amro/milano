@@ -118,6 +118,7 @@ function LoginForm() {
               src="/images/logo.png"
               alt="Milano Bellaka Logo"
               fill
+              sizes="96px"
               className="object-cover"
               priority
             />

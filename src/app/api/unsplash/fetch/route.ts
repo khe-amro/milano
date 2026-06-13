@@ -1,16 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-// 1. Change getUnsplashFoodImage to getFoodImage
 import { getFoodImage } from '@/lib/unsplash';
+import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: NextRequest) {
   try {
+    // Create Supabase client
+    const supabase = createClient();
+
+    // Verify session
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Non autorisé' },
+        { status: 401 }
+      );
+    }
+
     const { dishName, categoryName } = await request.json();
 
     if (!dishName) {
       return NextResponse.json({ error: 'Dish name is required' }, { status: 400 });
     }
 
-    // 2. Update the function call here
     const imageUrl = await getFoodImage(dishName, categoryName);
 
     return NextResponse.json({ imageUrl });

@@ -10,7 +10,8 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   title: "Milano Bellaka 2005 — Menu",
-  description: "Digital Menu for Milano Bellaka Restaurant in DZD.",
+  description: "Digital Menu for Milano Bellaka Restaurant in DZD. Scanner pour voir la carte.",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

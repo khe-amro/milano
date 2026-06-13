@@ -212,15 +212,13 @@ const uploadImage = async (file: File): Promise<string> => {
 
   try {
     // ── Resolve final image URL ──────────────────────────────
-    const DEFAULT_IMAGE_URL = "https://img.icons8.com/?size=100&id=neWjMrbMOdYh&format=png&color=000000"; // Replace with your default image URL
-
-    // Resolve final image URL
-    let finalImageUrl = DEFAULT_IMAGE_URL;
+    // null = no image → the menu card will show the category icon placeholder
+    let finalImageUrl: string | null = null;
 
     if (formImageFile) {
       finalImageUrl = await uploadImage(formImageFile);
     } else if (formImagePreview && !formImageFile) {
-      // If image was generated via Unsplash, use it
+      // If image was generated via Pexels, use it
       finalImageUrl = formImagePreview;
     }
 
@@ -347,6 +345,7 @@ const handleEditItem = async (e: React.FormEvent) => {
                 src="/images/logo.png"
                 alt="Logo"
                 fill
+                sizes="44px"
                 className="object-cover"
               />
             </div>
@@ -481,6 +480,7 @@ const handleEditItem = async (e: React.FormEvent) => {
                                 src={item.image_url}
                                 alt={item.name_fr}
                                 fill
+                                sizes="40px"
                                 className="object-cover"
                               />
                             ) : (
@@ -681,7 +681,7 @@ const handleEditItem = async (e: React.FormEvent) => {
             {/* Preview */}
             <div className="relative w-20 h-20 rounded bg-[#111111] border border-[#2d2d2d] flex items-center justify-center overflow-hidden flex-shrink-0">
               {formImagePreview ? (
-                <Image src={formImagePreview} alt="preview" fill className="object-cover" />
+                <Image src={formImagePreview} alt="preview" fill sizes="80px" className="object-cover" />
               ) : (
                 <div className="text-center">
                   <Upload className="w-6 h-6 text-gray-600 mx-auto mb-1" />
@@ -894,7 +894,7 @@ const handleEditItem = async (e: React.FormEvent) => {
             {/* Preview */}
             <div className="relative w-20 h-20 rounded bg-[#111111] border border-[#2d2d2d] flex items-center justify-center overflow-hidden flex-shrink-0">
               {formImagePreview ? (
-                <Image src={formImagePreview} alt="preview" fill className="object-cover" />
+                <Image src={formImagePreview} alt="preview" fill sizes="80px" className="object-cover" />
               ) : (
                 <div className="text-center">
                   <Upload className="w-6 h-6 text-gray-600 mx-auto mb-1" />

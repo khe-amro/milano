@@ -188,6 +188,7 @@ export default function QrClient({ restaurant }: QrClientProps) {
                   src="/images/logo.png"
                   alt="Milano Bellaka Logo"
                   fill
+                  sizes="96px"
                   className="object-cover"
                 />
               </div>
@@ -206,6 +207,7 @@ export default function QrClient({ restaurant }: QrClientProps) {
                   width={110}
                   height={32}
                   className="object-contain"
+                  style={{ width: 'auto', height: 'auto' }}
                 />
               </div>
 
@@ -227,6 +229,7 @@ export default function QrClient({ restaurant }: QrClientProps) {
                       src={qrDataUrl}
                       alt="QR Code"
                       fill
+                      sizes="176px"
                       className="object-contain"
                       priority
                     />
