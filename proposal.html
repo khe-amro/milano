@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+  color: #2a2a2a;
+  background: #fff;
+}
+
+/* ── COVER PAGE ─────────────────────────────────────────────── */
+.cover {
+  width: 210mm;
+  height: 297mm;
+  background: linear-gradient(160deg, #f5c6c6 0%, #fde8e8 40%, #fdf0f0 70%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14mm 14mm 10mm 14mm;
+  page-break-after: always;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: rgba(220, 80, 80, 0.06);
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 9pt;
+  color: #888;
+  font-weight: 500;
+}
+
+.cover-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20mm 0 10mm 0;
+}
+
+.cover-badge {
+  background: rgba(192,57,43,0.08);
+  border: 1px solid rgba(192,57,43,0.2);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 8pt;
+  color: #C0392B;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.cover-ar-title {
+  font-size: 52pt;
+  font-weight: 800;
+  color: #2a2a2a;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.cover-en-title {
+  font-size: 36pt;
+  font-weight: 700;
+  color: #C0392B;
+  line-height: 1.1;
+  margin-bottom: 4px;
+  direction: ltr;
+  text-align: right;
+}
+
+.cover-subtitle {
+  font-size: 10pt;
+  color: #888;
+  font-weight: 400;
+  margin-top: 10px;
+  border-right: 3px solid #C0392B;
+  padding-right: 10px;
+}
+
+.cover-divider {
+  width: 80px;
+  height: 3px;
+  background: #C0392B;
+  margin: 14px 0;
+  border-radius: 2px;
+}
+
+.cover-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.cover-tag {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 4px 12px;
+  font-size: 8pt;
+  color: #555;
+  font-weight: 500;
+}
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(192,57,43,0.15);
+  padding-top: 10mm;
+}
+
+.cover-contact p {
+  font-size: 8pt;
+  color: #666;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.cover-contact .name {
+  font-size: 10pt;
+  font-weight: 800;
+  color: #2a2a2a;
+  margin-bottom: 4px;
+}
+
+.cover-year {
+  font-size: 28pt;
+  font-weight: 800;
+  color: rgba(192,57,43,0.15);
+  direction: ltr;
+}
+
+/* ── CONTENT PAGES ──────────────────────────────────────────── */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 14mm 16mm;
+  page-break-after: always;
+  background: white;
+  position: relative;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10mm;
+  padding-bottom: 4mm;
+  border-bottom: 1px solid #f0e0e0;
+}
+
+.page-header-name {
+  font-size: 8pt;
+  color: #aaa;
+  font-weight: 500;
+  direction: ltr;
+}
+
+.page-header-year {
+  font-size: 8pt;
+  color: #aaa;
+  font-weight: 600;
+  direction: ltr;
+}
+
+.section-number {
+  font-size: 8pt;
+  color: #C0392B;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  direction: ltr;
+  text-align: right;
+}
+
+.section-title {
+  font-size: 26pt;
+  font-weight: 800;
+  color: #2a2a2a;
+  line-height: 1.2;
+  margin-bottom: 8mm;
+}
+
+.section-title-pink {
+  font-size: 22pt;
+  font-weight: 800;
+  color: #C0392B;
+  line-height: 1.2;
+  margin-bottom: 6mm;
+}
+
+.body-text {
+  font-size: 10pt;
+  color: #444;
+  line-height: 1.9;
+  margin-bottom: 6mm;
+  font-weight: 400;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, #fde8e8 0%, #fdf5f5 100%);
+  border-right: 4px solid #C0392B;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 6mm 0;
+  font-size: 10pt;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+/* ── TABLE ──────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6mm 0;
+  font-size: 9pt;
+}
+
+th {
+  background: linear-gradient(135deg, #C0392B, #922B21);
+  color: white;
+  padding: 10px 12px;
+  text-align: right;
+  font-weight: 700;
+  font-size: 9pt;
+}
+
+th:first-child { border-radius: 0 8px 8px 0; }
+th:last-child  { border-radius: 8px 0 0 8px; }
+
+td {
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid #f5e8e8;
+  color: #444;
+  line-height: 1.7;
+  font-size: 9pt;
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: #fdf5f5; }
+tr:last-child td { border-bottom: none; }
+
+.feature-icon {
+  color: #C0392B;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+/* ── PRICE CARD ─────────────────────────────────────────────── */
+.price-section {
+  margin: 8mm 0;
+}
+
+.price-card {
+  background: linear-gradient(135deg, #fde8e8, #fdf0f0);
+  border: 1.5px solid rgba(192,57,43,0.2);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin: 4mm 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-card-title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+.price-card-sub {
+  font-size: 8pt;
+  color: #888;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.price-card-amount {
+  font-size: 16pt;
+  font-weight: 800;
+  color: #C0392B;
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.price-total {
+  background: linear-gradient(135deg, #C0392B, #922B21);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 4mm 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-total-title {
+  font-size: 12pt;
+  font-weight: 700;
+  color: white;
+}
+
+.price-total-amount {
+  font-size: 20pt;
+  font-weight: 800;
+  color: white;
+  direction: ltr;
+}
+
+/* ── PAYMENT STEPS ──────────────────────────────────────────── */
+.payment-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 4mm 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5e8e8;
+}
+
+.step-num {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, #C0392B, #922B21);
+  border-radius: 50%;
+  color: white;
+  font-weight: 800;
+  font-size: 11pt;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content { flex: 1; }
+.step-title { font-size: 10pt; font-weight: 700; color: #2a2a2a; }
+.step-desc  { font-size: 8.5pt; color: #777; margin-top: 2px; font-weight: 400; line-height: 1.6; }
+.step-amount { font-size: 11pt; font-weight: 800; color: #C0392B; direction: ltr; white-space: nowrap; margin-right: auto; }
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+.page-footer {
+  position: fixed;
+  bottom: 8mm;
+  left: 16mm;
+  right: 16mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 7.5pt;
+  color: #bbb;
+  border-top: 1px solid #f0e0e0;
+  padding-top: 4mm;
+}
+
+/* ── SIGNATURE ──────────────────────────────────────────────── */
+.sig-box {
+  border: 1px solid #f0e0e0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 4mm 0;
+}
+
+.sig-box-title {
+  font-size: 9pt;
+  font-weight: 700;
+  color: #C0392B;
+  margin-bottom: 8px;
+}
+
+.sig-field {
+  font-size: 9pt;
+  color: #444;
+  line-height: 2;
+  font-weight: 500;
+}
+
+.sig-line {
+  border-bottom: 1px solid #ddd;
+  margin-top: 20px;
+  margin-bottom: 4px;
+}
+
+.sig-label {
+  font-size: 7.5pt;
+  color: #aaa;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10mm;
+  margin: 4mm 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4mm 0;
+}
+
+.tag {
+  background: #fde8e8;
+  border: 1px solid rgba(192,57,43,0.2);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 8.5pt;
+  color: #C0392B;
+  font-weight: 600;
+}
+
+.warning-box {
+  background: #fffbf0;
+  border: 1px solid #f0d080;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 9pt;
+  color: #6a5000;
+  line-height: 1.8;
+  margin: 4mm 0;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* ── FLOATING DOWNLOAD BUTTON ───────────────────────────────── */
+.floating-action-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.download-pdf-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #C0392B, #922B21);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 10pt;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  direction: rtl;
+}
+
+.download-pdf-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(192, 57, 43, 0.4);
+  background: linear-gradient(135deg, #d94d3c, #a83226);
+}
+
+.download-pdf-btn svg {
+  stroke-width: 2.5;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 1 — COVER                                            -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <span>عمرو خالد — مطوّر ويب</span>
+    <span style="direction:ltr">2026</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-badge">DIGITAL MENU · قائمة رقمية</div>
+    <div class="cover-ar-title">عرضنا</div>
+    <div class="cover-en-title">our<br/>proposal</div>
+    <div class="cover-divider"></div>
+    <div class="cover-subtitle">
+      قائمة رقمية تفاعلية للمطاعم — بكود QR وواجهة ثنائية اللغة
+    </div>
+    <div class="cover-tags">
+      <span class="cover-tag">Next.js</span>
+      <span class="cover-tag">Supabase</span>
+      <span class="cover-tag">QR Code</span>
+      <span class="cover-tag">PWA Offline</span>
+      <span class="cover-tag">عربي / فرنسي</span>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-contact">
+      <p class="name">عمرو خالد</p>
+      <p>مطوّر ويب متكامل</p>
+      <p style="direction:ltr;text-align:right">amrocode.netlify.app</p>
+    </div>
+    <div class="cover-year">2026</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 2 — PROJECT OVERVIEW                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">01 — OVERVIEW</div>
+  <div class="section-title">موضوع الاتفاقية<br/>ونطاق المشروع</div>
+
+  <div class="body-text">
+    يتفق الطرفان على قيام الطرف الأول بتقديم خدمة <strong>قائمة رقمية متكاملة</strong> للطرف الثاني،
+    وذلك لمطعمه من خلال منصة ويب احترافية تعمل عبر رمز QR وتدعم اللغتين العربية والفرنسية.
+  </div>
+
+  <div class="section-title-pink">١. الملخص التنفيذي</div>
+
+  <div class="body-text">
+    يُحدّد هذا المقترح نطاق العمل والمواصفات التقنية والاستثمار المالي اللازمين لإطلاق
+    قائمة رقمية تفاعلية خاصة بالمطعم.
+  </div>
+
+  <div class="highlight-box">
+    يقوم الزبون بمسح رمز QR → يفتح القائمة فورًا على هاتفه → يتصفح الأصناف بالعربية والفرنسية
+    مع الصور والأسعار — دون تحميل أي تطبيق.
+  </div>
+
+  <div class="body-text">
+    المنصة مبنية بتقنيات حديثة (Next.js + Supabase) وتعمل على جميع الأجهزة،
+    مع لوحة تحكم خاصة بصاحب المطعم لإدارة الأصناف والأسعار في أي وقت.
+  </div>
+
+  <div class="section-title-pink">٢. مميزات المنتج</div>
+
+  <div class="tag-list">
+    <span class="tag">✓ قائمة رقمية تفاعلية</span>
+    <span class="tag">✓ رمز QR مخصص</span>
+    <span class="tag">✓ دعم اللغتين AR / FR</span>
+    <span class="tag">✓ صور تلقائية للأصناف</span>
+    <span class="tag">✓ تحديث فوري للأسعار</span>
+    <span class="tag">✓ يعمل بدون إنترنت (PWA)</span>
+    <span class="tag">✓ لوحة تحكم للمالك</span>
+    <span class="tag">✓ متوافق مع الهاتف</span>
+    <span class="tag">✓ تصميم داكن أنيق</span>
+    <span class="tag">✓ استضافة مجانية السنة الأولى</span>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 3 — DELIVERABLES TABLE                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">02 — DELIVERABLES</div>
+  <div class="section-title">نطاق العمل<br/>والتسليمات</div>
+
+  <div class="section-title-pink">المرحلة الأولى: الإعداد والتخصيص</div>
+  <div class="body-text">المدة المتوقعة: 2 إلى 5 أيام عمل</div>
+
+  <table>
+    <tr>
+      <th>التسليم</th>
+      <th>الوصف</th>
+      <th>الملاحظات</th>
+    </tr>
+    <tr>
+      <td><strong>أ. إعداد القائمة الرقمية</strong></td>
+      <td>تهيئة الموقع وإدخال جميع أصناف القائمة الحالية</td>
+      <td>يشمل الأسماء بالعربية والفرنسية والأسعار</td>
+    </tr>
+    <tr>
+      <td><strong>ب. الصور التلقائية</strong></td>
+      <td>جلب صور احترافية لكل صنف تلقائيًا</td>
+      <td>يمكن إضافة صور خاصة بالمطعم لاحقًا</td>
+    </tr>
+    <tr>
+      <td><strong>ج. رمز QR المخصص</strong></td>
+      <td>إنشاء رمز QR يحمل شعار المطعم</td>
+      <td>صالح للطباعة بجودة عالية</td>
+    </tr>
+    <tr>
+      <td><strong>د. التخصيص البصري</strong></td>
+      <td>ضبط الألوان والشعار ومعلومات المطعم</td>
+      <td>يشمل جلسة مراجعة واحدة</td>
+    </tr>
+  </table>
+
+  <div class="section-title-pink" style="margin-top:6mm">المرحلة الثانية: التسليم والتدريب</div>
+  <div class="body-text">المدة المتوقعة: 1 يوم عمل</div>
+
+  <table>
+    <tr>
+      <th>التسليم</th>
+      <th>الوصف</th>
+      <th>الملاحظات</th>
+    </tr>
+    <tr>
+      <td><strong>أ. الإطلاق الرسمي</strong></td>
+      <td>نشر الموقع على الإنترنت برابط خاص بالمطعم</td>
+      <td>رابط دائم قابل للمشاركة</td>
+    </tr>
+    <tr>
+      <td><strong>ب. لوحة التحكم</strong></td>
+      <td>تسليم بيانات الدخول للوحة إدارة القائمة</td>
+      <td>إضافة / تعديل / إخفاء أي صنف</td>
+    </tr>
+    <tr>
+      <td><strong>ج. شرح الاستخدام</strong></td>
+      <td>دليل مرئي أو جلسة شرح مباشرة</td>
+      <td>عبر الهاتف أو واتساب</td>
+    </tr>
+  </table>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 4 — TIMELINE                                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">03 — TIMELINE</div>
+  <div class="section-title">الجدول الزمني<br/>للمشروع</div>
+
+  <table>
+    <tr>
+      <th>المرحلة</th>
+      <th>الأنشطة الرئيسية</th>
+      <th>المدة المتوقعة</th>
+    </tr>
+    <tr>
+      <td><strong>التجهيز (مرحلة الصفر)</strong></td>
+      <td>التخطيط وجمع البيانات  (اسم المطعم، الشعار، قائمة الأصناف)</td>
+      <td>يوم 1</td>
+    </tr>
+    <tr>
+      <td><strong>المرحلة 1: الإعداد</strong></td>
+      <td>إنشاء القائمة، إدخال الأصناف، جلب الصور، إنشاء رمز QR، تخصيص الألوان</td>
+      <td>2 إلى 5 أيام عمل</td>
+    </tr>
+    <tr>
+      <td><strong>المرحلة 2: المراجعة</strong></td>
+      <td>عرض النتيجة على العميل، تطبيق التعديلات المطلوبة (حتى جلسة واحدة)</td>
+      <td>يوم إلى يومي عمل</td>
+    </tr>
+    <tr>
+      <td><strong>الإطلاق والتسليم</strong></td>
+      <td>نشر الموقع، تسليم لوحة التحكم، دفع الدفعة الأخيرة</td>
+      <td>يوم عمل</td>
+    </tr>
+    <tr>
+      <td><strong>الإجمالي التقريبي</strong></td>
+      <td>من طلب الخدمة إلى الإطلاق (لا يشمل وقت مراجعات العميل)</td>
+      <td><strong>5 إلى 8 أيام عمل</strong></td>
+    </tr>
+  </table>
+
+  <div class="section-title-pink" style="margin-top:8mm">ما يحتاجه العميل لتسريع التسليم</div>
+
+  <div class="highlight-box">
+    <strong>✓ شعار المطعم</strong> (PNG بخلفية شفافة إن أمكن)<br/>
+    <strong>✓ قائمة الأصناف الحالية</strong> بالأسماء والأسعار<br/>
+    <strong>✓ معلومات المطعم</strong> (الاسم، العنوان، رقم الهاتف إن أريد عرضه)<br/>
+    <strong>✓ صور الأصناف</strong> إن توفرت (اختياري — يمكن الاستغناء عنها)
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 5 — PRICING                                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">04 — INVESTMENT</div>
+  <div class="section-title">الاستثمار المالي</div>
+
+  <div class="price-section">
+
+    <div class="price-card">
+      <div>
+        <div class="price-card-title">خدمة القائمة الرقمية الكاملة</div>
+        <div class="price-card-sub">إعداد + تخصيص + رمز QR + لوحة التحكم</div>
+      </div>
+      <div class="price-card-amount">25,000 DA</div>
+    </div>
+
+    <div class="price-card">
+      <div>
+        <div class="price-card-title">الاستضافة السنة الأولى</div>
+        <div class="price-card-sub">موقع نشط على الإنترنت طوال السنة الأولى</div>
+      </div>
+      <div class="price-card-amount" style="color:#2a8a4a">مجانًا 🎁</div>
+    </div>
+
+    <div class="price-total">
+      <div class="price-total-title">إجمالي الاستثمار في المشروع (دفعة واحدة)</div>
+      <div class="price-total-amount">25,000 DA</div>
+    </div>
+
+  </div>
+
+
+  <div class="section-title-pink" style="margin-top:6mm">شروط الدفع</div>
+
+
+  <div class="payment-step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">الدفعة الأولى و الأخيرة — عند التسليم</div>
+      <div class="step-desc">تُدفع بعد الموافقة على النتيجة النهائية وإطلاق الموقع</div>
+    </div>
+    <div class="step-amount">100% — 25,000 DA</div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 6 — TERMS & SIGNATURE                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">05 — TERMS & SUPPORT</div>
+  <div class="section-title">تنبيهات هامة<br/>وشروط الدعم</div>
+
+  <div class="section-title-pink">أ. ما لا يشمله هذا العقد</div>
+  <div class="body-text">
+    لضمان الشفافية التامة، يتم تحديد المسؤوليات التالية بوضوح —
+    الطرف الأول غير مسؤول إطلاقًا عن:
+  </div>
+  <div class="highlight-box">
+    <strong>التسويق والإعلانات:</strong> إدارة حملات إعلانية أو تحسين محركات البحث أو إدارة وسائل التواصل الاجتماعي<br/>
+    <strong>المحتوى المستمر:</strong> إضافة أصناف أو تحديثات منتظمة (يقوم بها صاحب المطعم بنفسه عبر لوحة التحكم)<br/>
+    <strong>أداء المبيعات:</strong> ضمان عدد الزوار أو زيادة الطلبات
+  </div>
+
+  <div class="section-title-pink">ب. الدعم الفني والضمان</div>
+
+  <table>
+    <tr>
+      <th>الفترة</th>
+      <th>نوع الدعم</th>
+      <th>التكلفة</th>
+    </tr>
+    <tr>
+      <td><strong>أسبوعين (14 يوم ) بعد الإطلاق</strong></td>
+      <td>دعم مجاني لتصحيح أي أخطاء تقنية ناتجة عن التطوير</td>
+      <td style="color:#2a8a4a;font-weight:700">مجاني</td>
+    </tr>
+    <tr>
+      <td><strong>بعد أسبوعين (14 يوم ) من الإطلاق</strong></td>
+      <td>أي دعم أو صيانة أو إضافة ميزات جديدة</td>
+      <td>بالاتفاق مسبقًا</td>
+    </tr>
+    <tr>
+      <td><strong>تجديد الاستضافة (سنوي)</strong></td>
+      <td>إبقاء الموقع نشطًا على الإنترنت بعد السنة الأولى</td>
+      <td>مجانًا أو حسب التكلفة </td>
+    </tr>
+  </table>
+
+  <div class="section-title-pink" style="margin-top:6mm">ج. الملكية الفكرية</div>
+  <div class="body-text">
+    عند استلام الدفعة الأخيرة كاملة، يصبح الموقع والبيانات المدخلة ملكًا تامًا للطرف الثاني.
+    بيانات الدخول للوحة التحكم والاستضافة تُسلَّم فور اكتمال الدفع.
+  </div>
+  
+   <div class="section-title-pink" style="margin-top:6mm">د.تطويرات مستقبلية</div>
+  <div class="body-text">
+     في حال موافقة العميل على المشروع يمكن تطوير المنصة بشكل كامل بما يتلائم مع احتياجات المطعم لتصبح منصة شاملة لإدارة المطعم (FULL-STACK SaaS)
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE 7 — SIGNATURE & APPROVAL                              -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-name">عمرو خالد</span>
+    <span class="page-header-year">2026</span>
+  </div>
+
+  <div class="section-number">06 — SIGNATURE</div>
+  <div class="section-title">التوقيع والموافقة</div>
+
+  <div class="section-title-pink" style="margin-top:6mm">ح. التوقيع والموافقة</div>
+
+  <div class="two-col">
+    <div class="sig-box">
+      <div class="sig-box-title">مقدّم الخدمة</div>
+      <div class="sig-field">
+        الاسم: عمرو خالد<br/>
+        الصفة: مطوّر ويب متكامل<br/>
+        <br/>
+        <div class="sig-line"></div>
+        <div class="sig-label">التوقيع والتاريخ</div>
+      </div>
+    </div>
+
+    <div class="sig-box">
+      <div class="sig-box-title">العميل (صاحب المطعم)</div>
+      <div class="sig-field">
+        الاسم: ___________________<br/>
+        اسم المطعم: ______________<br/>
+        <br/>
+        <div class="sig-line"></div>
+        <div class="sig-label">التوقيع والتاريخ</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:8mm; font-size:9pt; color:#888; font-weight:500; line-height:1.8;">
+    يُقرّ الطرفان بأنهما قد قرآ ووافقا على جميع الشروط والأحكام المذكورة في هذه الاتفاقية
+  </div>
+
+</div>
+
+<div class="no-print floating-action-container">
+  <button class="download-pdf-btn" onclick="window.print()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    <span>تحميل العرض كـ PDF</span>
+  </button>
+</div>
+
+</body>
+</html>
