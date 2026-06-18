@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const tajawal = Tajawal({
@@ -26,6 +27,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[#111111] text-[#E8E8E8]">
         {children}
+        <Analytics />
       </body>
     </html>
   );
